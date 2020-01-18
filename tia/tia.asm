@@ -65,8 +65,9 @@ Bar1:
 	ldx #164
 	ldy #0
 	sty PF1
+	ldy #$80
 	sty PF2
-	ldy #40
+	ldy #$60
 	sty PF0
 
 Sides:
