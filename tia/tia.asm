@@ -4,12 +4,20 @@
 		
 	processor 6502
 
+	seg.u Variables
+	org $80
+
+LnCol ds 1 ; defines one byte for LnCol
+
 	seg code
 
 	org $f000
 
 Start:
 	CLEAN_START
+
+	lda #$bc
+	sta LnCol
 
 NextFrame:
 
@@ -37,7 +45,7 @@ VBlankLoop:
 	lda #0
 	sta VBLANK
 
-	ldy #$1c
+	ldy LnCol
 	sty COLUPF
 
 
