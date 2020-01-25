@@ -10,6 +10,7 @@ P0X	ds 1;
 P0Y	ds 1;
 P0F	ds 1;
 
+TEMP	ds 1;
 	seg code
 	org $f000
 
@@ -74,13 +75,20 @@ ScanLoop:
 
 	bcs NoSprite
 
-	; Draw P0
+	sty TEMP
+	
+	;; multiply frame by 8
+	lda P0F
+	lsr
+	lsr
+	asl
+	asl
+	asl
 
-;	lda P0F
-;	asl
-;	asl
-;	asl
-
+	;; clear carry and add y
+	clc
+	adc TEMP
+	tay
 
 	lda Frame0,Y
 	sta GRP0
@@ -88,6 +96,7 @@ ScanLoop:
 	lda ColorFrame0,Y
 	sta COLUP0
 
+	ldy TEMP
 	dey
 
 	jmp ScanDone
@@ -118,7 +127,16 @@ OverscanLoop:
 	bne OverscanLoop
 
 FrameDone:
+
+	;; move up
 	inc P0Y
+
+	;; next frame of animation
+	lda P0F
+	clc
+	adc #1
+	and #15
+	sta P0F
 
 	jmp NextFrame
 
