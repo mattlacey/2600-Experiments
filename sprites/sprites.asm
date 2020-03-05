@@ -62,7 +62,7 @@ VBlankLoop:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	ldx #192
-	ldy #8
+	ldy #7
 ScanLoop:
 	stx COLUBK		; COlour LUminance BacKground
 
@@ -71,7 +71,7 @@ ScanLoop:
 	sbc P0Y
 
 	; Compare, if A >= operand, set carry
-	cmp #8
+	cmp #9
 
 	bcs NoSprite
 
@@ -85,7 +85,7 @@ ScanLoop:
 	asl
 	asl
 
-	;; clear carry and add y
+	;; clear carry and add y (i.e. the line of the sprite)
 	clc
 	adc TEMP
 	tay
@@ -140,67 +140,88 @@ FrameDone:
 
 	jmp NextFrame
 
-	org $ffcc
+	org $ffbc
 ;---Graphics Data from PlayerPal 2600---
+
+;---Graphics Data from PlayerPal 2600---
+
 Frame0
-	.byte #%00111100;$04
-	.byte #%01111110;$20
-	.byte #%11111111;$40
-	.byte #%01101101;$42
-	.byte #%11111111;$90
-	.byte #%01111110;$94
-	.byte #%01111110;$96
-	.byte #%00111100;$98
+        .byte #%01011010;$02
+        .byte #%01111110;$04
+        .byte #%11111111;$06
+        .byte #%11111111;$08
+        .byte #%01111110;$0A
+        .byte #%00111100;$A6
+        .byte #%00111100;$98
+        .byte #%00011000;$9A
 Frame1
-	.byte #%00111100;$04
-	.byte #%01111110;$20
-	.byte #%11111111;$40
-	.byte #%10110110;$42
-	.byte #%11111111;$90
-	.byte #%01111110;$94
-	.byte #%01111110;$96
-	.byte #%00111100;$98
+        .byte #%00110100;$02
+        .byte #%01111110;$04
+        .byte #%11111111;$06
+        .byte #%11111111;$08
+        .byte #%01111110;$0A
+        .byte #%00111100;$A6
+        .byte #%00111100;$98
+        .byte #%00011000;$9A
 Frame2
-	.byte #%00111100;$04
-	.byte #%01111110;$20
-	.byte #%11111111;$40
-	.byte #%11011011;$42
-	.byte #%11111111;$90
-	.byte #%01111110;$94
-	.byte #%01111110;$96
-	.byte #%00111100;$98
+        .byte #%01011010;$02
+        .byte #%01111110;$04
+        .byte #%11111111;$06
+        .byte #%11111111;$08
+        .byte #%01111110;$0A
+        .byte #%00111100;$A6
+        .byte #%00111100;$98
+        .byte #%00011000;$9A
+Frame3
+        .byte #%00101100;$02
+        .byte #%01111110;$04
+        .byte #%11111111;$06
+        .byte #%11111111;$08
+        .byte #%01111110;$0A
+        .byte #%00111100;$A6
+        .byte #%00111100;$98
+        .byte #%00011000;$9A
 ;---End Graphics Data---
 
 
 ;---Color Data from PlayerPal 2600---
 
 ColorFrame0
-	.byte #$04;
-	.byte #$20;
-	.byte #$40;
-	.byte #$42;
-	.byte #$90;
-	.byte #$94;
-	.byte #$96;
-	.byte #$98;
+        .byte #$02;
+        .byte #$04;
+        .byte #$06;
+        .byte #$08;
+        .byte #$0A;
+        .byte #$A6;
+        .byte #$98;
+        .byte #$9A;
 ColorFrame1
-	.byte #$04;
-	.byte #$20;
-	.byte #$40;
-	.byte #$42;
-	.byte #$90;
-	.byte #$94;
-	.byte #$96;
-	.byte #$98;
+        .byte #$02;
+        .byte #$04;
+        .byte #$06;
+        .byte #$08;
+        .byte #$0A;
+        .byte #$A6;
+        .byte #$98;
+        .byte #$9A;
 ColorFrame2
-	.byte #$04;
-	.byte #$20;
-	.byte #$40;
-	.byte #$42;
-	.byte #$90;
-	.byte #$94;
-	.byte #$96;
-	.byte #$98;
+        .byte #$02;
+        .byte #$04;
+        .byte #$06;
+        .byte #$08;
+        .byte #$0A;
+        .byte #$A6;
+        .byte #$98;
+        .byte #$9A;
+ColorFrame3
+        .byte #$02;
+        .byte #$04;
+        .byte #$06;
+        .byte #$08;
+        .byte #$0A;
+        .byte #$A6;
+        .byte #$98;
+        .byte #$9A;
 ;---End Color Data---
 
 	org $fffc
