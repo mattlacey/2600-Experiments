@@ -53,6 +53,7 @@ NextFrame:
 VBlankLoop:
 	sta WSYNC
 	dex
+	bne VBlankLoop
 
 	lda #0
 	sta VBLANK		; turn off v-blank
@@ -77,7 +78,7 @@ ScanLoop:
 
 	sty TEMP
 	
-	;; multiply frame by 8
+	;; multiply frame by 8 (after shifting right for slower animation)
 	lda P0F
 	lsr
 	lsr
